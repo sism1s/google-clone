@@ -1,9 +1,20 @@
 import "./App.css";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <h2>google</h2>
+      <Router>
+        <Switch>
+          <Route path="/search">
+            <h1>search page</h1>
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
