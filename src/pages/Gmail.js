@@ -5,6 +5,7 @@ import "./Gmail.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Mail from "./Mail";
 import EmailList from "./EmailList";
+import SendMail from "../components/SendMail";
 
 function Gmail() {
   return (
@@ -21,6 +22,8 @@ function Gmail() {
               <EmailList />
             </Route>
           </Switch>
+
+          <SendMail />
         </div>
       </div>
     </Router>
