@@ -13,13 +13,21 @@ import LabelImportantIcon from "@material-ui/icons/LabelImportant";
 import PersonIcon from "@material-ui/icons/Person";
 import DuoIcon from "@material-ui/icons/Duo";
 import PhoneIcon from "@material-ui/icons/Phone";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../reducer";
 
 function Sidebar() {
+  const [{ sendMessageIsOpen }, dispatch] = useStateValue();
   return (
     <div className="sidebar">
       <Button
         startIcon={<AddIcon fontSize="large" />}
         className="sidebar__compose"
+        onClick={() =>
+          dispatch({
+            type: actionTypes.SET_SEND_MESSAGE_IS_OPEN,
+          })
+        }
       >
         Compose
       </Button>

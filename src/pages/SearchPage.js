@@ -2,7 +2,6 @@ import React from "react";
 import useGoogleSearch from "../hooks/useGoogleSearch";
 import { useStateValue } from "../StateProvider";
 import "./SearchPage.css";
-import Response from "../response";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import SearchIcon from "@material-ui/icons/Search";

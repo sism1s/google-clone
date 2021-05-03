@@ -6,8 +6,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Mail from "./Mail";
 import EmailList from "./EmailList";
 import SendMail from "../components/SendMail";
+import { useStateValue } from "../StateProvider";
 
 function Gmail() {
+  const [{ sendMessageIsOpen }, dispatch] = useStateValue();
+
   return (
     <Router>
       <div className="gmail">
@@ -22,9 +25,8 @@ function Gmail() {
               <EmailList />
             </Route>
           </Switch>
-
-          <SendMail />
         </div>
+        {sendMessageIsOpen && <SendMail />}
       </div>
     </Router>
   );
