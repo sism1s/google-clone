@@ -4,12 +4,29 @@ import "./EmailRow.css";
 import LabelImportantOutlinedIcon from "@material-ui/icons/LabelImportantOutlined";
 import StartBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import { useHistory } from "react-router";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../reducer";
 
 function EmailRow({ id, title, subject, description, time }) {
   const history = useHistory();
+  const [{ selectedMail }, dispatch] = useStateValue();
+
+  const openMail = () => {
+    dispatch({
+      type: actionTypes.SET_SELECTED_MAIL,
+      selectedMail: {
+        id,
+        title,
+        subject,
+        description,
+        time,
+      },
+    });
+    history.push("/mail");
+  };
 
   return (
-    <div onClick={() => history.push("/mail")} className="emailRow">
+    <div onClick={openMail} className="emailRow">
       <div className="emailRow__options">
         <Checkbox />
         <IconButton>

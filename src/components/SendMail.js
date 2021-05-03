@@ -5,6 +5,8 @@ import { Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useStateValue } from "../StateProvider";
 import { actionTypes } from "../reducer";
+import { db } from "../firebase";
+import firebase from "firebase";
 
 function SendMail() {
   const [{ sendMessageIsOpen }, dispatch] = useStateValue();
@@ -16,7 +18,15 @@ function SendMail() {
   } = useForm();
 
   const onSubmit = (formData) => {
-    console.log(formData);
+    db.collection("emails").add({
+      to: formData.to,
+      subject: formData.subject,
+      message: formData.message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    dispatch({
+      type: actionTypes.SET_SEND_MESSAGE_IS_CLOSE,
+    });
   };
 
   return (

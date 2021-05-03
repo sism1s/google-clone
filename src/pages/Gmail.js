@@ -9,25 +9,29 @@ import SendMail from "../components/SendMail";
 import { useStateValue } from "../StateProvider";
 
 function Gmail() {
-  const [{ sendMessageIsOpen }, dispatch] = useStateValue();
+  const [{ sendMessageIsOpen, user }, dispatch] = useStateValue();
 
   return (
     <Router>
-      <div className="gmail">
-        <Header />
-        <div className="gmail__body">
-          <Sidebar />
-          <Switch>
-            <Route path="/mail">
-              <Mail />
-            </Route>
-            <Route path="/gmail">
-              <EmailList />
-            </Route>
-          </Switch>
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="gmail">
+          <Header />
+          <div className="gmail__body">
+            <Sidebar />
+            <Switch>
+              <Route path="/mail">
+                <Mail />
+              </Route>
+              <Route path="/gmail">
+                <EmailList />
+              </Route>
+            </Switch>
+          </div>
+          {sendMessageIsOpen && <SendMail />}
         </div>
-        {sendMessageIsOpen && <SendMail />}
-      </div>
+      )}
     </Router>
   );
 }
