@@ -1,0 +1,24 @@
+.login {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__gmail {
+  object-fit: contain;
+  height: 200px;
+}
+
+.login__google {
+  align-self: center;
+}
+
+.login__google > img {
+  object-fit: contain;
+  height: 50px;
+}

@@ -6,8 +6,24 @@ import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AppsIcon from "@material-ui/icons/Apps";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
+import { actionTypes } from "../reducer";
+import { useHistory } from "react-router";
 
 function Header() {
+  const history = useHistory();
+  const [{ user }, dispatch] = useStateValue();
+
+  const signOut = () => {
+    auth.signOut().then(() => {
+      dispatch({
+        type: actionTypes.LOGOUT_USER,
+      });
+    });
+    history.push("/");
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -31,7 +47,7 @@ function Header() {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        <Avatar />
+        <Avatar onClick={signOut} src={user.photoUrl} />
       </div>
     </div>
   );

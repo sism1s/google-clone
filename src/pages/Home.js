@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import AppsIcon from "@material-ui/icons/Apps";
 import { Avatar } from "@material-ui/core";
 import Search from "../components/Search";
+import { useStateValue } from "../StateProvider";
 
 function Home() {
+  const [{ user }, dispatch] = useStateValue();
   return (
     <div className="home">
       <div className="home__header">
@@ -17,7 +19,7 @@ function Home() {
           <Link to="/gmail">Gmail</Link>
           <Link to="/images">Images</Link>
           <AppsIcon />
-          <Avatar />
+          <Avatar src={user?.photoUrl} />
         </div>
       </div>
       <div className="home__body">
