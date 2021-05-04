@@ -22,7 +22,7 @@ function EmailRow({ id, title, subject, description, time }) {
         time,
       },
     });
-    history.push("/mail");
+    history.push("/gmailmail");
   };
 
   return (

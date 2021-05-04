@@ -8,6 +8,7 @@ import { actionTypes } from "./reducer";
 import { auth } from "./firebase";
 import { useEffect } from "react";
 import Login from "./pages/Login";
+import GmailMail from "./pages/GmailMail";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -37,6 +38,10 @@ function App() {
           </Route>
           <Route exact path="/gmail">
             {!user ? <Login /> : <Gmail />}
+          </Route>
+
+          <Route exact path="/gmailmail">
+            {!user ? <Login /> : <GmailMail />}
           </Route>
           <Route exact path="/search">
             <SearchPage />

@@ -1,0 +1,8 @@
+.gmail {
+  height: 100vh;
+}
+
+.gmail__body {
+  display: flex;
+  height: 100vh;
+}

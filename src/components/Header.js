@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton, Popover, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AppsIcon from "@material-ui/icons/Apps";
@@ -10,10 +10,31 @@ import { useStateValue } from "../StateProvider";
 import { auth } from "../firebase";
 import { actionTypes } from "../reducer";
 import { useHistory } from "react-router";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));
 
 function Header() {
   const history = useHistory();
   const [{ user }, dispatch] = useStateValue();
+
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const signOut = () => {
     auth.signOut().then(() => {
@@ -21,6 +42,9 @@ function Header() {
         type: actionTypes.LOGOUT_USER,
       });
     });
+  };
+
+  const handle = () => {
     history.push("/");
   };
 
@@ -47,7 +71,41 @@ function Header() {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        <Avatar onClick={signOut} src={user.photoUrl} />
+        <Avatar
+          style={{ cursor: "pointer" }}
+          aria-describedby={id}
+          onClick={handleClick}
+          src={user.photoUrl}
+        />
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <img
+            className="header__rightGoogle"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/368px-Google_2015_logo.svg.png"
+            alt=""
+            onClick={handle}
+          />
+
+          <Typography
+            className={classes.typography}
+            style={{ cursor: "pointer" }}
+            onClick={signOut}
+          >
+            Sign Out
+          </Typography>
+        </Popover>
       </div>
     </div>
   );
